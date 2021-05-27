@@ -1,22 +1,39 @@
-import React from 'react';
+import React, { useState }from 'react';
+import { Link } from 'react-router-dom'
 
 const Login = () => {
 
-    const onChange = () => {
+    const [usuario, setUsuario] = useState({
+        email: '',
+        password: ''
+    });
 
+    const { email, password } = usuario;
+
+    const onChange = e => {
+        setUsuario({
+            ...usuario,
+            [e.target.name] : e.target.value
+        });
+    }
+
+    const onSubmit = e => {
+        e.preventDefault();
     }
 
     return ( 
         <div className="form-usuario">
             <div className="contenedor-form sombra-dark">
                 <h1>Iniciar Sesiòn</h1>
-                <form>
+                <form onSubmit={onSubmit}>
                     <div className="campo-form">
                         <label htmlFor="email">Email</label>
                         <input 
                             type="email"
                             id="email"
+                            name="email"
                             placeholder="Tu email"
+                            value={email}
                             onChange={onChange}
                         />
                     </div>
@@ -25,7 +42,9 @@ const Login = () => {
                         <input 
                             type="password"
                             id="password"
+                            name="password"
                             placeholder="Tu password"
+                            value={password}
                             onChange={onChange}
                         />
                     </div>
@@ -37,6 +56,9 @@ const Login = () => {
                         />
                     </div>
                 </form>
+                <Link to={'/nueva-cuenta'} className="enlace-cuenta">
+                    Obtener Cuenta
+                </Link>
             </div>
         </div>
      );
